@@ -177,17 +177,18 @@ ul.social {
     display:inline-block;
 }
 ul.social>li {
+    background-color:#ff9203;
     display: inline-block;
 }
 ul.social>li.facebook a::before{
-    background-color:#ff9203;
     content:"Facebook";
 }
 ul.social>li.linkedin a::before{
-    background-color:#ff9203;
     content:"LinkedIn";
 }
-
+ul.social>li:hover {
+    background-color:aqua;
+}
 .copyright{
     display: inline-block;
     text-align:right;
