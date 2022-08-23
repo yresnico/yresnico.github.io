@@ -1,0 +1,194 @@
+/* CSS reset */
+* {
+margin: 0;
+padding: 0;
+border: 0;
+outline: 0;
+font-size: 100%;
+vertical-align: baseline;
+background: transparent;
+}
+
+/* general site styling */
+
+.container {
+    min-width:100vw;
+    min-height:100vh;
+    width: 100%;
+    height: 100%;
+    background-color: paleturquoise;
+    color: #ff9203;
+}
+.container h1{
+    font-family:'Rubik Maze', fantasy;
+    font-weight: 400;
+    text-align:center;
+    text-shadow: 3px 5px 2px #474747;
+    font-size: 4em;
+    margin-bottom: .5em;
+    padding-top: .5em;
+}
+.container h2{
+    font-family:'Rubik Maze', fantasy;
+    font-weight: 400;
+    text-align:center;
+    font-size: 2em;
+    margin-bottom: .5em;
+}
+.container main{
+    margin-top: 1em;
+    margin-bottom: 1em;
+    background-color: lightblue;
+    color: #a303ff;
+    text-align: center;
+    font-size: 2em;
+    padding: 1em;
+}
+
+/* menu styling */
+ul.full-navigation {
+    list-style: none;
+    min-width: 100%;
+    /*background-color: lightblue;*/
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap:.5em;
+    border: 2px solid #ff9203;
+    border-right: none;
+    border-left: none;
+    
+}
+ul.full-navigation>li a{
+    box-sizing: content-box;
+    padding:1em;
+    font-size:2em;
+    background-color: gold;
+    flex: 1.25;
+    margin-left: .5em;
+    margin-right: .5em;
+    color: blue;
+    display:flex;
+    justify-content: center;
+
+}
+
+ul.full-navigation>li a:hover{
+    background-color: lightgreen;
+    color: #ff9203;
+    outline: 2px solid blue;
+}
+nav ul.full-navigation>li a[aria-current=page] {
+	background-color: goldenrod;
+	color: #000;
+	box-shadow: inset 0 -.25em #ff9203;
+}
+nav ul.full-navigation>li a[aria-current=page]:hover{
+    background-color: lightgreen;
+    color: #ff9203;
+}
+/* makes the shift on smaller screens look slightly better in my opinion */
+@media screen and (max-width:931px) {
+    ul.full-navigation {
+        grid-template-columns: 1fr 1fr;
+        grid-gap: .25em;
+    }
+    ul.full-navigation>li a {
+        padding: .25em;
+        margin: .25em;
+    }
+}
+/* gallery styling */
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.gallery figure {
+    margin: 1em;      
+    border: 2px solid #ccc;
+    flex: 0 0 19%;
+}
+
+.gallery figure:hover {
+border-color: darkred;
+}
+
+.gallery img {
+max-width: 100%;
+}
+
+.gallery figcaption {
+text-align: center;
+font-size: 1.5vw;
+padding: 1vw;
+}
+
+/* contact styling */
+#myemailform {
+    text-align:left;
+    width: 60%;
+    overflow: hidden;
+    margin:auto;
+}
+#myemailform input, #myemailform textarea{
+    margin-bottom: .5em;
+    background-color: rgba(100,100,100,.1);
+}
+
+#myemailform input:focus, #myemailform textarea:focus{
+    margin-bottom: .5em;
+    background-color: rgba(255, 255, 255, .3);
+}
+
+#myemailform button{
+    border: 1px solid black;
+    border-radius: 15px;
+    background-color: #ff9203;
+    color: #a303ff;
+    padding: .25em;
+}
+#myemailform label{
+    display: inline-block;
+    width: 7em;
+    text-align: right;
+}
+#myemailform label[for="body"] {
+    display: inline-block;
+    vertical-align: top;
+}
+@media screen and (min-width: 1100px){
+    #myemailform #send{
+        margin-left:7.3em;
+    }
+    #myemailform label{
+        text-align: left !important;
+    }
+}
+
+/* footer styling */
+footer {
+    display: flex;
+    justify-content: space-between;
+}
+/* styling the social link portion*/
+ul.social {
+    display:inline-block;
+}
+ul.social>li {
+    display: inline-block;
+}
+ul.social>li.facebook a::before{
+    background-color:#ff9203;
+    content:"Facebook";
+}
+ul.social>li.linkedin a::before{
+    background-color:#ff9203;
+    content:"LinkedIn";
+}
+
+.copyright{
+    display: inline-block;
+    text-align:right;
+}
