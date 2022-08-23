@@ -163,12 +163,18 @@ padding: 1vw;
     background-color: rgba(255, 255, 255, .3);
 }
 
-#myemailform button{
+#myemailform button {
     border: 1px solid black;
     border-radius: 15px;
     background-color: #ff9203;
     color: #a303ff;
     padding: .25em;
+}
+#myemailform button:hover {
+    background-color: gold;
+    color: crimson;
+    cursor: pointer;
+    border: 2px solid #a303ff;
 }
 #myemailform label{
     display: inline-block;
