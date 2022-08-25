@@ -290,4 +290,10 @@
             border: 2px solid #ccc;
             flex: 0 0 100%;
         }
+        .gallery figcaption {
+            font-size: calc(1em + 5vw);
+        }
+        .container h1 {
+            font-size: calc(2em + 5vw);
+        }
     }
