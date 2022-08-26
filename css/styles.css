@@ -73,6 +73,7 @@ nav a:hover {
     border: 2px solid var(--accent-color);
     background-color: var(--secondary-color);
     color: var(--primary-color);
+    margin: -1px;
 }
 
 /* styling the main section */
@@ -204,6 +205,7 @@ footer li {
     color: var(--primary-color);
     cursor: pointer;
     border: 3px solid var(--secondary-color);
+    margin: -1px;
 }
 #my-email-form label[for="from"]{
     grid-row: 1;
