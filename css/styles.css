@@ -52,8 +52,8 @@ header h1 {
 
 nav ul {
     list-style: none;
-    padding: none;
-    margin: none;
+    padding: 0;
+    margin: 0;
 }
 
 nav a {
