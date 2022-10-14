@@ -1,0 +1,209 @@
+/*
+Stylesheet for JSMaze project
+
+
+*/
+* {
+    box-sizing: border-box;
+}
+
+/* begin attempted animation block- not working
+@keyframes bounceLeft {
+    0% {background-position: center;}
+    25% {background-position: left;}
+    75% {background-position: right;}
+    100%{background-position: center;}
+}
+@keyframes bounceRight {
+    0% {background-position: center;}
+    25% {background-position: right;}
+    75% {background-position: left;}
+    100%{background-position: center;}
+}
+@keyframes bounceUp {
+    0% {background-position: center;}
+    25% {background-position: top;}
+    75% {background-position: bottom;}
+    100%{background-position: center;}
+}
+@keyframes bounceDown {
+    0% {background-position: center;}
+    25% {background-position: left;}
+    75% {background-position: right;}
+    100%{background-position: center;}
+}
+
+.bouncingLeft {
+    animation: bounceLeft .5s linear 0s 1;
+}
+
+.bouncingRight {
+    animation: bounceRight .5s linear 0s 1;
+}
+
+.bouncingUp {
+    animation: bounceUp .5s linear 0s 1;
+}
+
+.bouncingDown {
+    animation: bounceDown .5s linear 0s 1;
+}
+
+*/
+
+#btns {
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.btn {
+    border: 1px solid black;
+    border-radius: 5%;
+    background-color: lightgray;
+    cursor: pointer;
+    padding: .5em;
+}
+
+.btn:hover{
+    background-color:darkgray;
+    color: white;
+    border-color: white;
+}
+
+#controls {
+    display: inline-block;
+    font-size: 24px;
+}
+
+#controls div {
+    margin-top: .5em;
+}
+#jsMazeContainer {
+    display: none;
+}
+
+#JSMazeFrame {
+    grid-area: main;
+}
+#JSMazeFrame:focus{
+    outline: 1px solid blue;
+}
+
+.board {
+    border: 3px solid black;
+    display: inline-block;
+}
+
+.current {
+    /*background-image: url("char-icon.png");*/
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.goal{
+    background-color: rgba(228, 26, 124, 0.5);
+}
+
+.row {
+    display: flex;
+}
+div:empty{
+    display: none;
+}
+.cell{
+    box-sizing: border-box;
+    padding: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.current{
+    background-color: rgba(189, 195, 72, 0.5);
+}
+
+.right {
+    border-right: 1px solid black;
+}
+
+.up {
+    border-top: 1px solid black;
+}
+
+label {
+    display: inline-block;
+    width: 46vw;
+}
+
+input {
+    width: 46vw;
+}
+
+#cont {
+    position: relative;
+    justify-content: center;
+    display: inline-block;
+    margin-bottom: 2em;
+}
+
+.neighborFrame{
+    justify-items: center;
+}
+.neighborFrame .board {
+    background-color: bisque;
+}
+
+#mazeMessage {
+    display: inline-block;
+    vertical-align: top;
+    font-size: 24px;
+}
+#prevMFrame {
+    grid-area: prev;
+}
+#nextMFrame {
+    grid-area: next;
+}
+
+#controls button {
+    padding: .5em;
+}
+@media screen and (max-width:899px) {
+    /*commented out due to issues with cell sizing 
+    #JSMazeWidget div::after {
+        content: '';
+        margin-top: 10px;
+    }
+    */
+}
+@media screen and (min-width:900px) {
+    #JSMazeFrame {
+    transform: scale(3);
+    }
+
+    #JSMazeWidget {
+        display: grid;
+        grid-template-columns: repeat(9, 1fr);
+        grid-auto-rows: minmax(100px, auto);
+        grid-template-areas: 
+        ". . . . . . . . ."
+        ". prev . . main . . next ."
+        ". . . . . . . . . ";
+    }
+    label {
+        width: 20vw;
+    }
+    input {
+        width: 8vw;
+    }   
+
+    #controls {
+    width: 35vw;
+    }
+
+    #mazeMessage {
+        margin-top: 10%;
+    }
+}
+    

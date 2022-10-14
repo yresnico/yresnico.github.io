@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Maze</title>
+    <link rel="stylesheet" href="css/maze-styles.css">
+</head>
+<body>
+    <div id="cont">
+        <div id="controls">
+            <div>
+                <label for="depth">Choose number of floors: </label>
+                <input type="number" pattern="\d+" name="depth" id="depth">
+            </div>
+            <div>
+                <label for="height">Choose number of rows: </label>
+                <input type="number" pattern="\d+" name="height" id="height">
+            </div>
+            <div>
+                <label for="width">Choose number of columns: </label>
+                <input type="number" pattern="\d+" name="width" id="width">
+            </div>
+            <div>
+                <label for="name">Maze name</label>
+                <input type="text" name="name" id="name">
+            </div>
+           <div>
+            <button type="button" id="btnSave">Save maze</button>
+            <button type="button" id="btnLoad">Load maze (by name)</button>
+            <button id="btnGen">Generate new maze</button>
+           </div>
+           <div>
+            <label for="algo">Solver algorithm</label>
+            <select name="algo" id="algo">
+                <option value="BFS" selected>BFS</option>
+                <option value="DFS">DFS</option>
+                <option value="Djikstra">Djikstra</option>
+                <option value="AStar">Astar</option>
+            </select>
+           </div>  
+           <div>
+            <button id="btnSolve">Solve maze</button>
+            <button id="btnHint">Get hint</button>
+            <button id="btnReset">Reset maze</button>
+           </div>              
+        </div>
+        <div id="mazeMessage"></div>
+    </div>
+
+    <div id="JSMazeWidget">
+        <div id="jsMazeContainer"></div>
+        <div id="prevMFrame" class="neighborFrame"></div>
+        <div id="JSMazeFrame" tabindex="0"></div>
+        <div id="nextMFrame" class="neighborFrame"></div>
+    </div>
+    
+
+    <script src="js-maze-main.js" type="module" defer></script>
+    <script>
+    </script>
+</body>
+</html>
