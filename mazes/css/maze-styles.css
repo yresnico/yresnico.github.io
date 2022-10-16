@@ -86,7 +86,7 @@ Stylesheet for JSMaze project
     grid-area: main;
 }
 #JSMazeFrame:focus{
-    outline: 1px solid blue;
+    outline: 1px solid transparent;
 }
 
 .board {
@@ -95,7 +95,6 @@ Stylesheet for JSMaze project
 }
 
 .current {
-    /*background-image: url("char-icon.png");*/
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;

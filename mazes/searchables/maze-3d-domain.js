@@ -111,5 +111,12 @@ class Maze3dDomain extends Searchable{
         let estX = Math.abs(maze3dState.curCell.width - this.maze.end.width);
         return estZ + estY + estX; 
     }
+
+    getDistance(stateA, stateB) {
+        let estZ = Math.abs(stateA.curCell.depth - stateB.curCell.depth);
+        let estY = Math.abs(stateA.curCell.height - stateB.curCell.height);
+        let estX = Math.abs(stateA.curCell.width - stateB.curCell.width);
+        return estZ + estY + estX; 
+    }
 }
 export default Maze3dDomain;

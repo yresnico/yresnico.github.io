@@ -3,8 +3,12 @@ import PrioritySearch from "./priority-search.js"
 
 class Djikstra extends PrioritySearch{
     constructor(searchable){
-        //let defaultComparitor = (a, b) => a.pathCost < b.pathCost;
-        //super(searchable.comparitor ?? defaultComparitor);
+        /*
+        initially wanted to utilize a compator built into the problem. Also need
+        to utilize the problem space build in state distance.
+        let defaultComparitor = (a, b) => a.pathCost < b.pathCost;
+        super(searchable.comparitor ?? defaultComparitor);
+        */
         super((a, b) => a.cost < b.cost);
         this.domain = searchable;
     }
@@ -28,7 +32,7 @@ class Djikstra extends PrioritySearch{
             this.stateCount++;
             for(let [action, state] of this.domain.getStateTransitions(curNode.state)) {
                 if(this.queue.peekByKey(state.key)){
-                    let newDistance = curNode.cost + 1
+                    let newDistance = curNode.cost + this.domain.getDistance(curNode.state, state);
                     let oldDistance = this.queue.peekByKey(state.key).cost;
                     if(newDistance < oldDistance){
                         let newNode = new Node(state, newDistance);

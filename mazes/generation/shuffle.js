@@ -1,3 +1,7 @@
+/**
+ * Simple in-place array shuffling function
+ * @param {Array} arr 
+ */
 function shuffle(arr){
     for(let i = 0; i < arr.length; i++){
         let j = Math.floor(Math.random() * arr.length);

@@ -1,3 +1,6 @@
+/**
+ * This was the priority queue provide to us earlier in the course. I have VERY slightly modified it to allow peek and removal by state keys.
+ */
 class PriorityQueue {
     #heap
     #comparator
@@ -53,7 +56,7 @@ class PriorityQueue {
             return this.#heap[index]
         }
     }
-    
+
     remove(value) {
       const index = this.#heap.indexOf(value);
       if (index != -1) {

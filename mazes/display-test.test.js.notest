@@ -1,0 +1,34 @@
+// This file is not working properly, therefore it is renamed as .notest
+// At some point I may return to try to fix it
+
+const fs = require('fs');
+const path = require('path');
+import JSMaze from './display/js-maze';
+import Prim3dGenerator from './generation/prim-3d-generator';
+const html = fs.readFileSync(path.resolve(__dirname, 'jestTest.html'), 'utf8');
+
+jest
+    .dontMock('fs');
+
+describe('Display Test', function () {
+    beforeEach(() => {
+        document.documentElement.innerHTML = html.toString();
+    })
+
+    afterEach(() => {
+        // restore the original func after test
+        jest.resetModules();
+        fetch.resetMocks();
+    });
+
+    test('setUpDisplayMaze', () => {
+        const container = document.getElementById('jsMazeContainer');
+        const mFrame = document.getElementById('JSMazeFrame')
+        const maze1 = new Prim3dGenerator(3,5,5).generate();
+        let js1 = new JSMaze(container, maze1);
+        expect(js1.maze3d === maze1).toBe(true);
+    })
+})
+
+
+

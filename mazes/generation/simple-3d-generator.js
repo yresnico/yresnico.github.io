@@ -7,7 +7,8 @@ class Simple3dGenerator extends Maze3dGenerator{
         this.height = height;
         this.width = width;
     }
-    generate(){
+    // generates a maze with all walls, carves out a random but direct path to exit, then randomly carves a little
+    generate() {
         let board = new Maze3d(this.depth, this.height, this.width, 3);
         let z = Math.floor(Math.random()* this.depth);
         let y = Math.floor(Math.random()* this.height);
@@ -20,31 +21,29 @@ class Simple3dGenerator extends Maze3dGenerator{
         let newY;
         let newX;
         let ending;
-        // alert(hasEnd)
-        while(!hasEnd){
+        while(!hasEnd) {
             newZ = Math.floor(Math.random()* this.depth);
             newY = Math.floor(Math.random()* this.height);
             newX = Math.floor(Math.random()* this.width);
             ending = board.matrix[newZ][newY][newX];
-            // alert(`Z = ${newZ} "Y = ${newY}, X = ${newX}`);
-            // alert(ending.wallCount);
             hasEnd = board.matrix[newZ][newY][newX].makeEnd();
         }
         board.end = ending;
-        //this.generateRandomWalls(board);
         let difference =[newZ-z, newY - y, newX - x]; 
         this.simpleCarveOut(beginning, ending, difference);
-        //this.carveOut(board, beginning, ending);
+        // make the maze more interesting by breaking more walls than just the path to exit. 2 is somewhat arbitrary, value can be 1-5
         this.breakRandomWalls(board, 2);
         board.curNode = board.start;
         return board;
     }
+
+    // method to carve a route directly to the exit. Probably needs to be cut down. 
     simpleCarveOut(beginning, ending, difference){
         let curNode = beginning;
         let [zDif, yDif, xDif] = difference;
         
-        while(Math.abs(zDif) > 0 && Math.abs(yDif) > 0 && Math.abs(xDif) > 0){
-            let direction = Math.floor(Math.random()*3);
+        while(Math.abs(zDif) > 0 && Math.abs(yDif) > 0 && Math.abs(xDif) > 0) {
+            let direction = Math.floor(Math.random() * 3);
             switch (direction) {
                 case 0:
                     curNode = this.closeDistance(zDif, "Depth", curNode)
@@ -74,8 +73,8 @@ class Simple3dGenerator extends Maze3dGenerator{
                     break;
             }
         }
-        while(Math.abs(zDif) > 0 && Math.abs(yDif) > 0){
-            let direction = Math.floor(Math.random()*2);
+        while(Math.abs(zDif) > 0 && Math.abs(yDif) > 0) {
+            let direction = Math.floor(Math.random() * 2);
             switch (direction) {
                 case 0:
                     curNode = this.closeDistance(zDif, "Depth", curNode)
@@ -97,8 +96,8 @@ class Simple3dGenerator extends Maze3dGenerator{
                     break;
             }
         }
-        while(Math.abs(zDif) > 0 && Math.abs(xDif) > 0){
-            let direction = Math.floor(Math.random()*3);
+        while(Math.abs(zDif) > 0 && Math.abs(xDif) > 0) {
+            let direction = Math.floor(Math.random() * 3);
             switch (direction) {
                 case 0:
                     curNode = this.closeDistance(zDif, "Depth", curNode)
@@ -120,8 +119,8 @@ class Simple3dGenerator extends Maze3dGenerator{
                     break;
             }
         }
-        while(Math.abs(yDif) > 0 && Math.abs(xDif) > 0){
-            let direction = Math.floor(Math.random()*2);
+        while(Math.abs(yDif) > 0 && Math.abs(xDif) > 0) {
+            let direction = Math.floor(Math.random() * 2);
             switch (direction) {
                 case 0:
                     curNode = this.closeDistance(yDif, "Height", curNode)
@@ -168,7 +167,7 @@ class Simple3dGenerator extends Maze3dGenerator{
             }
         }
     }
-
+    // breaks down a wall and moves into the newly available cell
     closeDistance(value, direction, cell) {
         if(value > 0){
             switch(direction) {
@@ -196,6 +195,7 @@ class Simple3dGenerator extends Maze3dGenerator{
             }
         }
     }
+    // meant for use if starting with maze of cells with no walls to start
     generateRandomWalls(board){
         for(let i = 0; i < this.depth; i++){
             for(let j = 0; j < this.height; j++){
@@ -205,6 +205,7 @@ class Simple3dGenerator extends Maze3dGenerator{
             }
         }
     }
+    // alternative carveout, seemed too close to DFS so replaced with simpleCarveOut
     carveOut(board, startNode, endNode){
         let target = endNode;
         let visited = new Set();
@@ -234,6 +235,7 @@ class Simple3dGenerator extends Maze3dGenerator{
             }
         }
     }
+    // for use in shuffling in the original carve out
     shuffle(arr){
         for(let i = 0; i < arr.length; i++){
             let j = Math.floor(Math.random() * arr.length);
@@ -242,6 +244,7 @@ class Simple3dGenerator extends Maze3dGenerator{
             }
         }
     }
+    // breaks some random walls on the board so the maze can be more than one path to exit
     breakRandomWalls(board, numWalls = 3){
         for(let i = 0; i < this.depth; i++){
             for(let j = 0; j < this.height; j++){

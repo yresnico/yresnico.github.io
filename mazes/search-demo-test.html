@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Demo</title>
+    <style>
+        body {
+            font-size: large;
+            background-color: gray;
+        }
+
+        h1 {
+            text-align: center;
+            color: skyblue;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        }
+
+        section {
+            padding-top: 2em;
+            width: 75%;
+            margin: auto;
+            background-color: aliceblue;
+        }
+
+        #container {
+            width: 50%;
+            margin: auto;
+        }
+
+        label {
+            width: 200px;
+            display: inline-block;
+        }
+
+        label.longLabel {
+            width: 305px;
+        }
+
+        button {
+            margin-top: 1em;
+            margin-bottom: 1em;
+        }
+
+    </style>
+</head>
+<body>
+    <header><h1>Search Algorithm Comparison</h1></header>
+    <section>
+        <div id="container">
+            <div>
+                <label for="depth">Maze Depth: </label>
+                <input type="number" pattern="^\d+$" id="depth" name="depth">
+            </div>
+            <div>
+                <label for="width">Maze Height: </label>
+                <input type="number" pattern="^\d+$" id="height" name="height">
+            </div>
+            <div>
+                <label for="width">Maze Width: </label>
+                <input type="text" pattern="^\d+$" id="width" name="width">
+            </div>
+
+            <label for="generation" class="longLabel">Pick maze generation algorithm</label>
+            <select name="generation" id="generation">
+                <option value="Simple">Simple</option>
+                <option value="DFS">DFS</option>
+                <option value="Prim">Prim</option>
+            </select>
+            <div>
+                <button type="button" id="btnCompare">Compare solving algorithms</button>
+            </div>
+            
+            <output id="compareOut">&nbsp;<br>&nbsp;<br>&nbsp;</output>
+        </div>
+    </section>
+    <script src="demo-main.js" type="module"></script>
+</body>
+</html>

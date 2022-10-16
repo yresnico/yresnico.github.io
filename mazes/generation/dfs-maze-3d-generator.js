@@ -8,6 +8,7 @@ class DFSMaze3dGenerator extends Maze3dGenerator{
         this.height = height;
         this.width = width;
     }
+    // creates new maze with all walls, then makes paths via dfs
     generate(){
         let board = new Maze3d(this.depth, this.height, this.width);
         let z = Math.floor(Math.random()* this.depth);
@@ -29,15 +30,18 @@ class DFSMaze3dGenerator extends Maze3dGenerator{
         board.curNode = board.start;
         return board;
     }
-    DFSTraverse(board, startNode){
+
+    // generate the paths  (probably don't need the board to be passed at this point)
+    DFSTraverse(board, startNode) {
         let stack = [];
         startNode.visited = true;
         let numVisited = 1;
         let numToVisit = this.depth * this.height * this.width;
         let curNode = startNode;
+
         while(numVisited < numToVisit){
             let availableNeighbors = curNode.availableNeighbors.slice();
-            if(availableNeighbors.length > 0){
+            if(availableNeighbors.length > 0) {
                 shuffle(availableNeighbors);
                 let n = availableNeighbors[0];
                 curNode.hammer(n);

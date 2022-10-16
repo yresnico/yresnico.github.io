@@ -5,9 +5,7 @@ import Djikstra from "../search-algorithms/djikstra-algorith.js";
 import Maze3dDomain from "../searchables/maze-3d-domain.js";
 
 class JSMaze{
-    static savedMazes = new Map([
-
-    ])
+    // set up static maps and functions
     static directions = new Map([
         [0, 'above'], [1, 'below'], [2, "up"], [3, "down"], [4, "left"], [5, "right"]
     ])
@@ -26,7 +24,23 @@ class JSMaze{
         ['BFS', JSMaze.bfsAlg], ['DFS', JSMaze.dfsAlg], ['Djikstra', JSMaze.djikAlg],
         ['AStar', JSMaze.astarAlg]
     ]);
+
+    static bfsAlg(searchable){
+        return new BFS(searchable);
+    }
+
+    static dfsAlg(searchable){
+        return new DFS(searchable);
+    }
     
+    static djikAlg(searchable) {
+        return new Djikstra(searchable);
+    }
+
+    static astarAlg(searchable) {
+        return new AStar(searchable);
+    }
+
     constructor(container, maze3d, curNode = null){
         this.setCharImagePath("char-icon.png");
         this.container = container;
@@ -161,7 +175,7 @@ class JSMaze{
             this.generateNeighborCSS() 
         }
     }
-
+    //attempt to animate bumping into walls. Currently not working
     failMove(movement){
         let self;
         switch(movement){
@@ -238,13 +252,13 @@ class JSMaze{
         this.frame.innerHTML = '';
         this.frame.appendChild(clone);
     }
-
+    //function meant to reduce code in the updateFrames function. Not completed in time
     frameClone(element, toBeCopied, classToAdd) {
         let clone = toBeCopied.cloneNode(true);
         clone.classList.add(classToAdd);
         element.appendChild(clone)
     }
-
+    // Display the game over announcement. May change in future if a time/move limit is added
     gameOver(){
         this.gameWon = true;
         this.container.children[this.curNode.depth].children[this.curNode.height].children[this.curNode.width].classList.add('InGoal');
@@ -258,7 +272,7 @@ class JSMaze{
         mCont.textContent = MESSAGE;
         mCont.className = 'announcement'
     }
-
+    // Solves the maze using the named algorithm
     getSolution(algName){
         let alg;
         if ( JSMaze.algs.has(algName) ) {
@@ -267,7 +281,7 @@ class JSMaze{
         }
         return alg.solve();
     }
-
+    // Solves the maze and moves the player along it to the end. Speed of animation is in the last line
     animateSolution(algName){
         this.solution = this.getSolution(algName);
         this.solutionStepIdx = 0;
@@ -275,6 +289,7 @@ class JSMaze{
         this.interval = setInterval(() => {solutionMove()}, 500);
     }
 
+    // Gets the solution and temporarily moves the player one step into it. May change in future to just css modification and flashing the new location instead of actually moving and moving back
     showHint(algName){
         this.solution = this.getSolution(algName);
         this.solutionStepIdx = 0;
@@ -286,7 +301,7 @@ class JSMaze{
             setTimeout(() => {undo(reverseMove)}, 1000);
         }
     }
-
+    // function for moving one step along the solution. utilized only for the animate solution function at the moment.
     makeSolutionMove(){
         this.makeMove(this.solution[this.solutionStepIdx]);
         this.solutionStepIdx++;
@@ -295,32 +310,7 @@ class JSMaze{
         }
     }
 
-    save(name){
-        JSMaze.savedMazes.set(name, this.maze3d);
-    }
-
-    load(name){
-        if(JSMaze.savedMazes.has(name));{
-            this.swapMaze(JSMaze.savedMazes.get(name))
-        }
-    }
-
-    static bfsAlg(searchable){
-        return new BFS(searchable);
-    }
-
-    static dfsAlg(searchable){
-        return new DFS(searchable);
-    }
-    
-    static djikAlg(searchable) {
-        return new Djikstra(searchable);
-    }
-
-    static astarAlg(searchable) {
-        return new AStar(searchable);
-    }
-
+    // function to generate the css for the frame and cell height and width,
     generateCSS() {
 
         let mainFrameWidth = this.frame.clientWidth;
@@ -345,7 +335,7 @@ class JSMaze{
         }
 
     }
-
+    // generates the same for the neighbor boards
     generateNeighborCSS() {
         let mainFrameHeight = this.frame.clientHeight;
         this.prevFrame.style.height = mainFrameHeight + 'px';
@@ -359,7 +349,7 @@ class JSMaze{
         }
         let frameCells = document.querySelectorAll('.framed .cell')
     }
-
+    // sets character image for current cell display
     setCharImagePath(filePath) {
         this.charImagePath = filePath;
     }

@@ -5,7 +5,9 @@ class Maze3d{
     #width
     #depth
     static isIntegerex = /^\d+$/;
-
+    static directions = new Map([
+        ['above', 0], ['below', 1], ["up", 2], ["down", 3], ["left", 4], ["right", 5]
+    ])
     constructor(depth = 1, height = 2, width = 2, defaultWallNumber = 0) {
         this.depth = depth;
         this.height = height;
@@ -13,6 +15,7 @@ class Maze3d{
         this.matrix = this.initiate(depth, height, width, defaultWallNumber);
         this.start = null;
         this.end = null;
+        this.curNode = null;
     }
     
     get depth() {
@@ -72,14 +75,6 @@ class Maze3d{
                 }
             }
         }
-        // let x = Math.floor(Math.random()* depth);
-        // let y = Math.floor(Math.random()* height);
-        // let z = Math.floor(Math.random()* width);
-        // board[x][y][z].makeStart();
-        // x = Math.floor(Math.random()* depth);
-        // y = Math.floor(Math.random()* height);
-        // z = Math.floor(Math.random()* width);
-        // board[x][y][z].makeEnd();
         return board;
     }
 
@@ -121,7 +116,10 @@ class Maze3d{
         
         return resultStr;
     }
-
+    /**
+     * replaced the internal maze and resets all appropriate variables
+     * @param {Maze3d} maze3d 
+     */
     fromMaze3d(maze3d) {
         this.matrix = maze3d.matrix;
         this.depth = maze3d.depth;
@@ -135,7 +133,11 @@ class Maze3d{
     toJSON() {
         return {depth: this.#depth, height: this.#height, width: this.#width, matrix: this.matrix, start: this.start, end: this.end, curNode: this.curNode}
     }
-
+    /**
+     * Gets a JSON.parsed stringoject from JSON.stringify(maze3d) and returns a new maze3d that is of the proper type and has correct children
+     * @param {object} storageObj 
+     * @returns 
+     */
     static fromStorage(storageObj) {
         let newMaze = new Maze3d();
         newMaze.depth = storageObj['depth'];
@@ -152,6 +154,11 @@ class Maze3d{
 
         return newMaze;
     }
+    /**
+     * reset the matrix to using Cell objects and repopulates neighbors, etc. 
+     * necessary because the toString will lose all the functions/ many attributes
+     * @param {Array} matrix
+     */
     rehydrate(matrix){
         for(let i = 0; i < this.depth; i++){
             for(let j = 0; j < this.height; j++){
@@ -175,12 +182,21 @@ class Maze3d{
                     // set floors on bottom floor, ceilings on top floor
                     if(i === 0){
                         matrix[i][j][k].walls[0] = true;
-                    } else if (i === depth -1){
+                    } else if (i === this.depth -1){
                         matrix[i][j][k].walls[1] = true;
                     }
                 }
             }
         }
+    }
+
+    move(direction) {
+        if(Maze3d.directions.has(direction)){
+            let dVector = Maze3d.directions.get(direction);
+            if(!this.curNode.direction && this.curNode.neighbors[dVector] !== null) {
+                this.curNode = this.curNode.neighbors[dVector];
+            }
+        } 
     }
 }
 

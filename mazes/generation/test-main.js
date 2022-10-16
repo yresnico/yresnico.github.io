@@ -3,26 +3,18 @@ import DFSMaze3dGenerator from "./dfs-maze-3d-generator.js";
 import Maze3d from "./maze3d.js";
 import Prim3dGenerator from "./prim-3d-generator.js";
 import Simple3dGenerator from "./simple-3d-generator.js";
-
+// This file contains the code originally used to test my functions
 // const cell = new Cell();
 // console.dir(cell);
 // const cell2 = new Cell(4);
 // console.dir(cell2);
-// let isIntegerex = /^\d+$/;
-// console.log(isIntegerex.test(7))
-// console.log(isIntegerex.test(-7))
-// // const arr = Array.from(Array(3), () => Array.from(Array(5), () => Array(5)));
-// // let count = 0;
-// // for(const x of arr){
-// //     console.log(++count);
-// // }
 // const maze = new Maze3d(3, 5, 5, 4);
 // console.dir(maze);
 // console.log(maze.toString());
 // maze.matrix[1][1][1].addWall(4)
 // console.dir(maze);
 // console.log(maze.toString());
- const simple = new Simple3dGenerator(2, 5, 5);
+const simple = new Simple3dGenerator(2, 5, 5);
 const newMaze = simple.generate();
 console.log(newMaze.toString());
 // console.log(simple.measureAlgorithmTime());

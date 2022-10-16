@@ -1,5 +1,8 @@
 import Maze3dGenerator from "./maze-3d-generator.js";
 
+/**
+ * This class was meant to be a maze generator utilizing Wilson's algorithm. It is completely unfinished.
+ */
 class Wilson3dGenerator extends Maze3dGenerator {
     constructor(depth, height, width){
         super();

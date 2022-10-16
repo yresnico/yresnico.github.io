@@ -15,7 +15,6 @@ class Cell{
         this.neighbors = [null, null, null, null, null, null];
         this.isStart = false;
         this.isEnd = false;
-        //this.generateRandomWalls(defaultWallNumber);
     }
 
     get value() {
@@ -41,7 +40,7 @@ class Cell{
     set neighbors(val) {
         this.#neighbors = val;
     }
-    
+    // series of getters that were not really utilized properly
     get visitableNeighbors() {
         let result = []
         for(let i = 0; i < Cell.sides; i++){
@@ -75,7 +74,7 @@ class Cell{
     get leftWall() {
         return this.walls[5]
     }
-
+    // mark the cell as the start of the maze. Start cannot be end
     set isStart(val) {
         if(val){
             if(this.#isEnd){
@@ -88,7 +87,7 @@ class Cell{
     get isStart() {
         return this.#isStart;
     }
-
+    // same logic, but reverse
     set isEnd(val) {
         if(val){
             if(this.isStart){
@@ -97,6 +96,7 @@ class Cell{
         }       
         this.#isEnd = val;
     }
+
     get isEnd() {
         return this.#isEnd;
     }
@@ -104,7 +104,7 @@ class Cell{
     makeStart() {
         this.isStart = true;
     }
-
+    // for now, this code only allows ends to be created at cells with only one way in. 
     makeEnd() {
         if(this.wallCount >= 5) {
             try {
@@ -117,7 +117,7 @@ class Cell{
         }
         return false;
     }
-
+    // for use in toString and display 
     get symbol() {
         if(this.isStart) {
             return 'S';
@@ -139,7 +139,12 @@ class Cell{
     get rightWalled() {
         return this.walls[5];
     }
-    
+    // adds a neighbor cell to this one at the given index, and adds this cell to the corresponding index of the neighbor. I'm not really sure what the else is for at this time. Not a great thing.
+    /**
+     * 
+     * @param {Cell} cell 
+     * @param {Number} index 
+     */
     addNeighbor(cell, index) {
         if(index !== undefined) {
             this.neighbors[index] = cell;
@@ -148,7 +153,10 @@ class Cell{
             this.neighbors.push(cell);
         }
     }
-
+    /**
+     * attempts to add random walls as long as there is a neighbor cell to share the wall. 
+     * @param {Number} num 
+     */
     generateRandomWalls(num) {
         for(let i = 0; i < num; i++) {
             let idx = Math.floor(Math.random() * Cell.sides);
@@ -157,6 +165,10 @@ class Cell{
             }
         }
     }
+    /**
+     * tries to break random walls as long as there is a neighbor
+     * @param {Number} num 
+     */
     openRandomWalls(num) {
         for(let i = 0; i < num; i++) {
             let idx = Math.floor(Math.random()* Cell.sides);
@@ -165,12 +177,20 @@ class Cell{
             }
         }
     }
+    /**
+     * adds a wall between this cell and its neighbor at the corresponding index
+     * @param {Number} i 
+     */
     addWall(i) {
         if(this.neighbors[i]) {
             this.neighbors[i].walls[Cell.wallMap.get(i)] = true;
             this.walls[i] = true;
         }
     }
+    /**
+     * opens the wall between this cell and the neighbor (needs to update both cells)
+     * @param {Cell} cell 
+     */
     hammer(cell) {
         let idx = this.neighbors.findIndex(c => {if(c !== null) {return c.value === cell.value} else return false});
         if(idx > - 1) {
@@ -178,6 +198,7 @@ class Cell{
             this.neighbors[idx].walls[Cell.wallMap.get(idx)] = false;
         }
     }
+    // last  getter that mostly were unused
     get availableNeighbors() {
         let result = [];
         for(let neighbor of this.neighbors) {
@@ -187,6 +208,7 @@ class Cell{
         }
         return result;
     }
+    // checks the number of walls on a cell. Used to check if eligible for exit
     get wallCount() {
         let count = 0;
         for(const wall of this.walls) {
@@ -196,11 +218,11 @@ class Cell{
         }
         return count;
     }
+
     toString() {
-        //return ` ${this.symbol} ${this.rightWalled ? '|' : ' '}`
         return `${this.symbol}`;
     }   
-
+    // getters for checking if there is a wall and neighbor in that direction
     get above() {
         return (this.neighbors[0] !== null && this.walls[0]);
     }
@@ -224,7 +246,7 @@ class Cell{
     get right() {
         return (this.neighbors[5] !== null && this.walls[5]);
     }
-
+    // attempt to create toJSON for saving. required comment due to circular references
     toJSON() {
         let newObj = {}
         newObj.value = this.#value; 
@@ -237,6 +259,7 @@ class Cell{
         newObj.isEnd = this.#isEnd;
         return newObj;
     }
+    // slightly inefficient (and incorrect, re: neighbors) method to unparse the object. Probably should change to utilizing the parse in the parameter query rather than assuming it will be utilized outside the class
     static fromStorage(storageObj){
         let newCell = new Cell(storageObj.depth, storageObj.height, storageObj.width);
         newCell.value = storageObj.value;

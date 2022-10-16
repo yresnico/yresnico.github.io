@@ -1,7 +1,3 @@
-/**
- * Unsure if node is needed, or if I should just include in state
- */
-
 class Node{
     #curState
     #parentNode
